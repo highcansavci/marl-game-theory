@@ -22,7 +22,7 @@ Düşünün: Tetris oynuyorsunuz. Bloklar yukarıdan düşüyor. Siz ne kadar iy
 
 Matematik dilinde buna **Markov Decision Process (MDP)** diyoruz.
 
-Bu formülü görünce korkmayın! Sadece şunu söylüyor: Bir durum uzayınız var, eylemleriniz var, bu eylemlerin sonuçları var (geçiş olasılıkları), ve aldığınız ödüller var. Ve hepsi **deterministik** - yani sabit kurallarla çalışıyor.
+Bu terimi görünce korkmayın! Sadece şunu söylüyor: Bir durum uzayınız var, eylemleriniz var, bu eylemlerin sonuçları var (geçiş olasılıkları), ve aldığınız ödüller var. Ve hepsi **deterministik** - yani sabit kurallarla çalışıyor.
 
 Peki ya şimdi karşınıza bilinçli bir rakip çıksa? Sizin her hamlenize göre yeni bir strateji geliştirse? İşte burada işler karışıyor.
 
@@ -340,7 +340,5 @@ Ben sadece kapıyı aralıyorum. İçeri girmek size kalmış.
 ---
 
 **GitHub'da Kod:** [github.com/highcansavci/marl-game-theory](https://github.com) → Tüm kod örnekleri, notebook'lar ve ekstra materyaller
-
-**Tartışma:** Twitter'da #MARLGameTheory hashtag'i ile sohbet edelim
 
 **İletişim:** [highcsavci@gmail.com] - Sorularınız, önerileriniz her zaman hoş gelir
