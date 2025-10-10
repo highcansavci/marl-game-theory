@@ -12,7 +12,7 @@ Ve işte bu yazıda tam olarak bunu konuşacağız: Neden tek başına hareket e
 
 ## Tek Ajan Reinforcement Learning: Parlak Başarılar, Gizli Sınırlar
 
-Önce biraz gerilere gidelim. 
+Önce biraz gerilere gidelim.
 
 Son 10 yılda pekiştirmeli öğrenme (Reinforcement Learning) mucizevi şeyler başardı. DQN Atari oyunlarını çözdü, AlphaGo dünya şampiyonunu yendi, robotlar hassas manipülasyon öğrendi. Muhteşem değil mi?
 
@@ -20,11 +20,9 @@ Ama hepsinin ortak bir noktası var: **Ortam sizden bağımsız davranıyor.**
 
 Düşünün: Tetris oynuyorsunuz. Bloklar yukarıdan düşüyor. Siz ne kadar iyi veya kötü oynarsanız oynayın, bloklar gelmeye devam ediyor - sizin stratejinize göre davranışlarını değiştirmiyorlar. Super Mario'daki Goomba'lar hep aynı şekilde yürüyor. Pong'daki top fizik kurallarına uyuyor.
 
-Matematik dilinde buna **Markov Decision Process (MDP)** diyoruz:
+Matematik dilinde buna **Markov Decision Process (MDP)** diyoruz.
 
-$$\text{MDP} = \langle \mathcal{S}, \mathcal{A}, \mathcal{P}, \mathcal{R}, \gamma \rangle$$
-
-Bu formülü görünce korkmayın! Sadece şunu söylüyor: Bir durum uzayınız var ($\mathcal{S}$), eylemleriniz var ($\mathcal{A}$), bu eylemlerin sonuçları var ($\mathcal{P}$ - geçiş olasılıkları), ve aldığınız ödüller var ($\mathcal{R}$). Ve hepsi **deterministik** - yani sabit kurallarla çalışıyor.
+Bu formülü görünce korkmayın! Sadece şunu söylüyor: Bir durum uzayınız var, eylemleriniz var, bu eylemlerin sonuçları var (geçiş olasılıkları), ve aldığınız ödüller var. Ve hepsi **deterministik** - yani sabit kurallarla çalışıyor.
 
 Peki ya şimdi karşınıza bilinçli bir rakip çıksa? Sizin her hamlenize göre yeni bir strateji geliştirse? İşte burada işler karışıyor.
 
@@ -32,11 +30,9 @@ Peki ya şimdi karşınıza bilinçli bir rakip çıksa? Sizin her hamlenize gö
 
 Şimdi düşünün: İki robot aynı depoda çalışıyor. İkisi de "en hızlı şekilde paket topla" görevini öğreniyor. Robot A bir koridor seçiyor, hızlıca gidip geliyor. Süper! Ama Robot B de aynı koridoru seçerse ne olur? Çarpışma. Yavaşlama. Verimsizlik.
 
-Robot A için ortam artık sabit değil. Çünkü Robot B'nin davranışı sürekli değişiyor - o da öğreniyor! Matematiksel olarak:
+Robot A için ortam artık sabit değil. Çünkü Robot B'nin davranışı sürekli değişiyor - o da öğreniyor!
 
-$$\mathcal{P}(s_{t+1} | s_t, a_t^{\text{A}}, a_t^{\text{B}})$$
-
-Robot A'nın geçiş fonksiyonu artık kendi eylemlerine ($a_t^{\text{A}}$) değil, Robot B'nin eylemlerine de ($a_t^{\text{B}}$) bağlı. Ve Robot B sürekli değişiyor!
+Robot A'nın geçiş fonksiyonu artık kendi eylemlerine değil, Robot B'nin eylemlerine de bağlı. Ve Robot B sürekli değişiyor!
 
 İşte buna **non-stationarity** diyoruz. Ortamınız durgun değil, akan bir nehir gibi sürekli evrim geçiriyor. Klasik RL algoritmaları bu durumda sarsılıyor çünkü temel varsayımları çöküyor.
 
@@ -54,13 +50,7 @@ Siz hiç düşündünüz mü, trafik ışıklarında herkes kırmızıda duruyor
 
 İşte Nash dengesi tam olarak bu: Hiç kimsenin tek başına stratejisini değiştirerek daha iyi sonuç alamayacağı nokta.
 
-Formel olarak (kısa tutuyorum):
-
-$$
-J_i(\pi_i', \pi_{-i}') \geq J_i(\pi_i, \pi_{-i}^{*}) \quad \text{her ajan } i \text{ için}
-$$
-
-Bu ne demek? Ajan $i$ kendi stratejisini $\pi_i^*$'den başka herhangi bir $\pi_i$'ye değiştirse, daha kötü bir sonuç ($J_i$) alacak - tabii diğer ajanlar stratejilerini değiştirmediği sürece.
+Formel olarak (kısa tutuyorum): Bu, bir ajanın kendi stratejisini değiştirdiğinde, diğerleri sabit kalırsa, daha kötü bir sonuç alacağı anlamına gelir.
 
 ### Best Response: Karşınızdakine Göre En İyi Hamle
 
@@ -68,44 +58,30 @@ Bu ne demek? Ajan $i$ kendi stratejisini $\pi_i^*$'den başka herhangi bir $\pi_
 
 Futbol maçında penaltı atıyorsunuz. Kaleci sol tarafa atlarsa sağa vurmak en iyi tepkiniz. Kaleci sağa atlarsa sol. Kaleci ortada kalırsa orta. Sizin en iyi tepkiniz, kalecinin stratejisine bağlı.
 
-Matematik dilinde:
+Matematiksel olarak bu, "Diğerlerinin stratejisi buysa, benim en iyi stratejim budur" demektir.
 
-$$\pi_i^{BR}(\pi_{-i}) = \arg\max_{\pi_i} J_i(\pi_i, \pi_{-i})$$
-
-"Diğerlerinin stratejisi $\pi_{-i}$ ise, benim en iyi stratejim $\pi_i^{BR}$'dir" demek.
-
-Nash dengesi ne zaman oluşur? Herkes aynı anda birbirinin best response'unu oynadığında! Yani:
-
-$$\pi_i^* = \pi_i^{BR}(\pi_{-i}^*)$$
-
-Herkes için. Aynı anda. Bu yüzden denge.
+Nash dengesi ne zaman oluşur? Herkes aynı anda birbirinin en iyi tepkisini oynadığında! Bu yüzden denge.
 
 ---
 
 ## Markov Oyunları: MDP'nin Çoklu Ajan Versiyonu
 
-Tamam, şimdi hepsini bir araya getirelim. Tek ajan MDP'miz vardı. Şimdi onu çoklu ajana genişletiyoruz ve ortaya **Markov Oyunu** (Stochastic Game) çıkıyor:
+Tamam, şimdi hepsini bir araya getirelim. Tek ajan MDP'miz vardı. Şimdi onu çoklu ajana genişletiyoruz ve ortaya **Markov Oyunu** (Stochastic Game) çıkıyor.
 
-$$\mathcal{MG} = \langle N, \mathcal{S}, \{\mathcal{A}_i\}, \mathcal{P}, \{\mathcal{R}_i\}, \gamma \rangle$$
-
-Yeni ne var? $N$ ajan sayısı. Her ajanın kendi eylem uzayı $\mathcal{A}_i$ var. Ve en önemlisi: Her ajanın **kendi ödül fonksiyonu** $\mathcal{R}_i$ var!
+Burada yeni olanlar: Ajan sayısı, her ajanın kendi eylem uzayı ve en önemlisi, her ajanın **kendi ödül fonksiyonu** var!
 
 Bu son nokta çok kritik. Çünkü şimdi üç farklı oyun tipi ortaya çıkıyor:
 
-**1. Tam İşbirlikçi Oyunlar:** Herkesin ödülü aynı. "Hepimiz aynı gemideyiz." 
+**1. Tam İşbirlikçi Oyunlar:** Herkesin ödülü aynı. "Hepimiz aynı gemideyiz."
    - Örnek: Robotlar beraber bir nesne taşıyor
 
-**2. Zero-Sum Oyunlar:** Birinin kazancı diğerinin kaybı. 
+**2. Zero-Sum Oyunlar:** Birinin kazancı diğerinin kaybı.
    - Örnek: Satranç, poker, futbol maçı
 
 **3. General-Sum Oyunlar:** Herkesin farklı hedefi var, bazen çakışıyor bazen uyuşuyor.
    - Örnek: Trafikteki araçlar (hız istiyorsunuz ama kazasız)
 
-Bellman denklemi de değişiyor tabii. Artık tek bir politika yok, ortak politika var ($\boldsymbol{\pi} = (\pi_1, \pi_2, ..., \pi_n)$):
-
-$$V_i^{\boldsymbol{\pi}}(s) = \sum_{\mathbf{a}} \boldsymbol{\pi}(\mathbf{a}|s) \left[ r_i(s,\mathbf{a}) + \gamma \sum_{s'} P(s'|s,\mathbf{a}) V_i^{\boldsymbol{\pi}}(s') \right]$$
-
-Gördünüz mü? Artık tüm ajanların ortak eylemi $\mathbf{a}$ üzerinden hesaplıyoruz. Çünkü ortam herkese bağlı.
+Bellman denklemi de değişiyor tabii. Artık tek bir politika yok, ortak politika var. Artık tüm ajanların ortak eylemi üzerinden hesaplıyoruz. Çünkü ortam herkese bağlı.
 
 ---
 
@@ -276,11 +252,11 @@ Sonuç: Profesyonel oyuncuları yendi. Ama daha önemlisi, hiç görülmemiş st
 
 ### 3. Finansal Piyasalar: Algoritmaların Dans Ettiği Yer
 
-New York Borsası'nda saniyede binlerce işlem yapan yüzlerce trading botu var. Her biri diğerlerinin davranışını tahmin etmeye çalışıyor. 
+New York Borsası'nda saniyede binlerce işlem yapan yüzlerce trading botu var. Her biri diğerlerinin davranışını tahmin etmeye çalışıyor.
 
 Eğer Nash dengesi olmasaydı? Kaos. Volatilite. Flash crash'ler (2010'da yaşandı).
 
-Ama oyun teorik MARL algoritmaları sayesinde, botlar bir tür "sessiz anlaşma"ya varıyorlar. Aşırı rekabetçi davranmıyorlar çünkü herkesin kaybetmesine yol açıyor. Market maker botlar spread'i dengede tutuyorlar. 
+Ama oyun teorik MARL algoritmaları sayesinde, botlar bir tür "sessiz anlaşma"ya varıyorlar. Aşırı rekabetçi davranmıyorlar çünkü herkesin kaybetmesine yol açıyor. Market maker botlar spread'i dengede tutuyorlar.
 
 Ve ilginçtir ki bu **kimsenin program etmediği** bir davranış - dengelerden ortaya çıkıyor (emergent behavior).
 
@@ -330,7 +306,7 @@ Ama self-play'in altında yatan oyun teorik prensipleri neler? Fictitious play n
 - **Sutton & Barto (2018)** - "Reinforcement Learning: An Introduction" → RL'nin İncili, ücretsiz online
 - **Leyton-Brown & Shoham (2008)** - "Essentials of Game Theory" → Oyun teorisine yumuşak giriş
 
-### Orta Seviye  
+### Orta Seviye
 - **Littman (1994)** - "Markov Games as a Framework for Multi-Agent RL" → Markov oyunlarının kurucusu
 - **Busoniu et al. (2008)** - "A Comprehensive Survey of MARL" → Geniş literatür taraması
 
@@ -367,4 +343,4 @@ Ben sadece kapıyı aralıyorum. İçeri girmek size kalmış.
 
 **Tartışma:** Twitter'da #MARLGameTheory hashtag'i ile sohbet edelim
 
-**İletişim:** [highcsavci@gmail.com] - Sorularınız, önerileriniz her zaman hoş gelir 🚀
+**İletişim:** [highcsavci@gmail.com] - Sorularınız, önerileriniz her zaman hoş gelir
