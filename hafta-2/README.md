@@ -664,8 +664,7 @@ Yeni Model → Self-Play'e geri dön
 ```
 
 ### Eğitim Sonuçları ve Analiz
-
-[!alphazero_tic_tac_toe.png]
+<img width="1189" height="1005" alt="alphazero_tic_tac_toe" src="https://github.com/user-attachments/assets/b730a8a4-fb0c-48eb-9291-ffa309f78766" />
 
 20 iterasyon sonunda AlphaZero'nun öğrendikleri:
 
@@ -872,3 +871,4 @@ Bir sonraki yazımızda, Nash-Q Learning algoritmasını derinlemesine inceleyec
 
 
 **Hashtags:** #MachineLearning #ReinforcementLearning #MultiAgentSystems #SelfPlay #GameTheory #AI #DeepLearning #AlphaGo #AlphaZero #StarCraft
+
