@@ -665,6 +665,8 @@ Yeni Model → Self-Play'e geri dön
 
 ### Eğitim Sonuçları ve Analiz
 
+[!alphazero_tic_tac_toe.png]
+
 20 iterasyon sonunda AlphaZero'nun öğrendikleri:
 
 **İlk İterasyonlar (1-5):**
@@ -867,5 +869,6 @@ Bir sonraki yazımızda, Nash-Q Learning algoritmasını derinlemesine inceleyec
 ---
 
 *Bu yazı, Çoklu Ajan Takviyeli Öğrenme serisinin 2. haftasıdır. Gelecek hafta: "Nash Dengesi'ni Öğrenmek: Q-Learning Buluşuyor von Neumann ile"*
+
 
 **Hashtags:** #MachineLearning #ReinforcementLearning #MultiAgentSystems #SelfPlay #GameTheory #AI #DeepLearning #AlphaGo #AlphaZero #StarCraft
