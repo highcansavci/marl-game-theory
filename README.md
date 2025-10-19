@@ -1,5 +1,3 @@
-Elbette, `<details>` ve `</details>` etiketlerini kaldırarak içeriğin tamamının doğrudan görünür olduğu Markdown formatı aşağıdadır:
-
 # Çoklu Ajan Pekiştirmeli Öğrenme & Oyun Teorisi: 52 Haftalık Medium Yazı Serisi
 
 ## 📖 Proje Hakkında
