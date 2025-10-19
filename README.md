@@ -26,10 +26,14 @@ Bu repo, Multi-Agent Reinforcement Learning (MARL) ve Oyun Teorisi konularını 
 
 ## Ön Koşullar
 
-✅ Temel pekiştirmeli öğrenme bilgisi (Q-Learning, Policy Gradients)
-✅ Python programlama (NumPy, PyTorch/TensorFlow)
-✅ Temel lineer cebir ve olasılık teorisi
-⚠️ Oyun teorisi bilgisi gerekli değil (sıfırdan anlatılacak)
+✅ Temel pekiştirmeli öğrenme bilgisi (Q-Learning, Policy Gradients)  
+
+✅ Python programlama (NumPy, PyTorch/TensorFlow)  
+
+✅ Temel lineer cebir ve olasılık teorisi  
+
+⚠️ Oyun teorisi bilgisi gerekli değil (sıfırdan anlatılacak)  
+
 
 ---
 
