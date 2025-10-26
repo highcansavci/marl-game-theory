@@ -385,6 +385,7 @@ if __name__ == "__main__":
 ```
 
 ### Görselleştirmeler
+[!nash_q_learning_analysis_lp.png]
 Eğitim sonuçlarını dört farklı açıdan analiz edebiliriz:
 
 1.  **Konverjans Grafiği (Üst Sol - "Nash-Q Learning Konverjansı LP ile"):** Bu grafik, Lineer Programlama ile Nash-Q Learning'in öğrenme dinamiğini net şekilde gösteriyor. İlk 2000 episode boyunca her iki ajanın ortalama ödülleri geniş dalgalanmalar sergiliyor - bu, epsilon-greedy stratejisinin yüksek exploration fazı. Ajan 1 ve Ajan 2'nin çizgileri birbirinin neredeyse zıttı gibi hareket ediyor: biri kazandığında diğeri kaybediyor. Episode 2000 civarında dalgalanmalar belirgin şekilde azalmaya başlıyor; epsilon decay sayesinde ajanlar keşiften yararlanmaya (exploitation) geçiyor.
