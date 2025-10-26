@@ -385,7 +385,7 @@ if __name__ == "__main__":
 ```
 
 ### Görselleştirmeler
-!(nash_q_learning_analysis_lp.png)  
+![Nash Q-Learning Analizi](nash_q_learning_analysis_lp.png)
 
 Eğitim sonuçlarını dört farklı açıdan analiz edebiliriz:
 
